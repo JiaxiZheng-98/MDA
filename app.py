@@ -2,6 +2,7 @@ import dash
 from dash import html, dcc
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
+import gunicorn
 
 app = dash.Dash(__name__, use_pages=True, external_stylesheets=[dbc.themes.FLATLY])
 

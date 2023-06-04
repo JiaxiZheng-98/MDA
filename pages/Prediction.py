@@ -315,10 +315,10 @@ def update_output(month, day, hour, rain, temperature, h, ws, wd, loc, num_heavy
         x_new['LC_RAD60'] = 0.4 + 0.5888 * temperature
         x_new['AV_TEMP'] = temperature
         x_new['LC_WINDDIR'] = decode_WINDDIR(wd)
-        x_new['heavy'] = num_heavy
-        x_new['car'] = num_car
-        x_new['bike'] = num_bike
-        x_new['pedestrian'] = num_pedestrian
+        x_new['heavy'] = num_heavy * 60
+        x_new['car'] = num_car * 60
+        x_new['bike'] = num_bike * 60
+        x_new['pedestrian'] = num_pedestrian * 60
         x_new['weekend'] = int(date.weekday() >= 5)
         x_new['academic_calender'] = academic
         x_new['cos_hour'] = np.cos(scaled_hour)

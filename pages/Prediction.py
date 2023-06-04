@@ -41,7 +41,7 @@ day_list = [
 
 hour_list = [
     {'label': str(hour), 'value': hour}
-    for hour in range(1, 24)
+    for hour in range(0, 24)
 ]
 
 # month dropdown
@@ -124,7 +124,7 @@ heavy = dcc.Input(id='heavy', type='number', min=-0, max=1000, step=1, placehold
                   style={'width': '250px'}, )
 car = dcc.Input(id='car', type='number', min=0, max=1000, step=1, placeholder="Number of Cars",
                 style={'width': '250px'}, )
-bike = dcc.Input(id='bike', type='number', min=0, max=1000, step=1, placeholder="Number of Bikes",
+bike = dcc.Input(id='bike', type='number', min=0, max=1000, step=1, placeholder="Number of Bikes/Motorcycles",
                  style={'width': '250px'}, )
 pedestrian = dcc.Input(id='pedestrian', type='number', min=0, max=1000, step=1, placeholder="Number of Pedestrians",
                        style={'width': '250px'}, )
@@ -156,28 +156,67 @@ inputs = dbc.Card(
                  style={"text-align": "center", 'font-size': "40px", 'color': 'rgb(0,51,112)'}),
         html.Br(),
         dbc.Row([
-            dbc.Col(month_dropdown, width="auto"),
-            dbc.Col(day_dropdown, width="auto"),
-            dbc.Col(hour_dropdown, width="auto")
+            dbc.Col(html.Div([
+                html.Div("Select the month:"),
+                month_dropdown
+            ]), width="auto"),
+            dbc.Col(html.Div([
+                html.Div("Select the day:"),
+                day_dropdown
+            ]), width="auto"),
+            dbc.Col(html.Div([
+                html.Div("Select the hour:"),
+                hour_dropdown
+            ]), width="auto")
         ], justify="center"),
         html.Br(),
         dbc.Row([
-            dbc.Col(rain_dropdown, width="auto"),
-            dbc.Col(temp, width="auto"),
-            dbc.Col(humidity, width="auto"),
+            dbc.Col(html.Div([
+                html.Div("Select the rain condition:"),
+                rain_dropdown
+            ]), width="auto"),
+            dbc.Col(html.Div([
+                html.Div("Input the temperature:"),
+                temp
+            ]), width="auto"),
+            dbc.Col(html.Div([
+                html.Div("Input the humidity:"),
+                rain_dropdown
+            ]), width="auto"),
         ], justify="center"),
         html.Br(),
         dbc.Row([
-            dbc.Col(wind_speed, width="auto"),
-            dbc.Col(winddirection_dropdown, width="auto"),
-            dbc.Col(location_dropdown, width="auto"),
+            dbc.Col(html.Div([
+                html.Div("Input the wind speed:"),
+                wind_speed
+            ]), width="auto"),
+            dbc.Col(html.Div([
+                html.Div("Select the wind direction:"),
+                winddirection_dropdown
+            ]), width="auto"),
+            dbc.Col(html.Div([
+                html.Div("Select the location:"),
+                location_dropdown
+            ]), width="auto"),
         ], justify="center"),
         html.Br(),
         dbc.Row([
-            dbc.Col(heavy, width="auto"),
-            dbc.Col(car, width="auto"),
-            dbc.Col(bike, width="auto"),
-            dbc.Col(pedestrian, width="auto"),
+            dbc.Col(html.Div([
+                html.Div("Input the number of heavy vehicles:"),
+                heavy
+            ]), width="auto"),
+            dbc.Col(html.Div([
+                html.Div("Input the number of cars:"),
+                car
+            ]), width="auto"),
+            dbc.Col(html.Div([
+                html.Div("Input the number of bikes/motorcycles:"),
+                bike
+            ]), width="auto"),
+            dbc.Col(html.Div([
+                html.Div("Input the number of pedestrians:"),
+                pedestrian
+            ]), width="auto"),
         ], justify="center")
     ])
 )

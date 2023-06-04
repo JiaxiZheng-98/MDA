@@ -10,6 +10,7 @@ summary_level = level_data()
 
 dash.register_page(__name__, path='/Level')
 
+# create labels for dropdown box
 all_variables = summary_level.columns.tolist()
 all_variables = all_variables[3:]
 all_locations = [{'label': "Naamsestraat 35 Maxim", 'value': 255439},
@@ -22,6 +23,7 @@ all_locations = [{'label': "Naamsestraat 35 Maxim", 'value': 255439},
                  {'label': "Vrijthof", 'value': 280324},
                  {'label': "His-Hairs", 'value': 303910}]
 
+# month slider
 month_slider = dbc.Card(
     dbc.CardBody([
         html.P(
@@ -39,6 +41,7 @@ month_slider = dbc.Card(
     ])
 )
 
+# day slider
 day_slider = dbc.Card(
     dbc.CardBody([
         html.P(
@@ -58,6 +61,7 @@ day_slider = dbc.Card(
     ])
 )
 
+# variables dropdown box
 var_dropdown = dbc.Card(
     dbc.CardBody([
         html.P(
@@ -74,6 +78,7 @@ var_dropdown = dbc.Card(
     ])
 )
 
+# location dropdown box
 loc_dropdown = dbc.Card(
     dbc.CardBody([
         html.P(
@@ -90,6 +95,7 @@ loc_dropdown = dbc.Card(
     ])
 )
 
+# layout
 layout = dbc.Row([
     dbc.Col([
         month_slider,
@@ -100,12 +106,20 @@ layout = dbc.Row([
         html.Br(),
         loc_dropdown,
     ], width=3, align="center"),
-    dbc.Col(dbc.Card(
-        dbc.CardBody(dcc.Graph(id='monthPlot1'))
-    ))]
+    dbc.Col([dbc.Card(
+        dbc.CardBody(dcc.Graph(id='monthPlot1'))),
+        html.Br(),
+        dbc.Card(
+            dbc.CardBody([html.Div("LCeq: C-weighted, Leq (equivalent continuous sound level), in dB(C)"),
+                          html.Div("LAeq: A-weighted, equivalent continuous sound level, in dB(A)."),
+                          html.Div("Lmax: the maximum sound level, during a measurement period or a noise event, in dB(A)."),
+                          html.Div("LCpeak: C-weighted, peak, sound level, in dB(C)")])
+        )
+    ])]
     , style={"margin-left": "10px", "margin-right": "10px"})
 
 
+# update the graph based on the inputs
 @callback(
     Output("monthPlot1", "figure"),
     [Input("months-slider", "value"),
@@ -122,7 +136,7 @@ def MonthPlot(month, day, var, loc):
     fig = px.line(filtered_level, x='result_timestamp', y=var,
                   labels={
                       "result_timestamp": "Date",
-                      "y": "Noise (dbs)"
+                      "y": "Noise"
                   })
-    fig.update_layout(yaxis_title='Noise in db(a)', xaxis_title='Time')
+    fig.update_layout(yaxis_title='Noise', xaxis_title='Time')
     return fig

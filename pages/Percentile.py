@@ -1,5 +1,4 @@
 import dash
-import pandas as pd
 from dash import dcc, html, callback
 from data import percentile_data
 from dash.dependencies import Input, Output
@@ -10,6 +9,7 @@ percentile = percentile_data()
 
 dash.register_page(__name__, path='/Percentile')
 
+# create labels for dropdown box
 all_variables = percentile.columns.tolist()
 all_variables = all_variables[2:]
 all_locations = [{'label': "Naamsestraat 35 Maxim", 'value': 255439},
@@ -22,6 +22,7 @@ all_locations = [{'label': "Naamsestraat 35 Maxim", 'value': 255439},
                  {'label': "Vrijthof", 'value': 280324},
                  {'label': "His-Hairs", 'value': 303910}]
 
+# month slider
 month_slider = dbc.Card(
     dbc.CardBody([
         html.P(
@@ -39,6 +40,7 @@ month_slider = dbc.Card(
     ])
 )
 
+# day slider
 day_slider = dbc.Card(
     dbc.CardBody([
         html.P(
@@ -58,6 +60,7 @@ day_slider = dbc.Card(
     ])
 )
 
+# variables dropdown box
 var_dropdown = dbc.Card(
     dbc.CardBody([
         html.P(
@@ -74,6 +77,7 @@ var_dropdown = dbc.Card(
     ])
 )
 
+# locations dropdown box
 loc_dropdown = dbc.Card(
     dbc.CardBody([
         html.P(
@@ -90,6 +94,7 @@ loc_dropdown = dbc.Card(
     ])
 )
 
+# layout
 layout = dbc.Row([
     dbc.Col([
         month_slider,
@@ -100,12 +105,19 @@ layout = dbc.Row([
         html.Br(),
         loc_dropdown,
     ], width=3, align="center"),
-    dbc.Col(dbc.Card(
-        dbc.CardBody(dcc.Graph(id='monthPlot'))
-    ))]
+    dbc.Col([
+        dbc.Card(
+            dbc.CardBody(dcc.Graph(id='monthPlot'))),
+        html.Br(),
+        dbc.Card(
+            dbc.CardBody([html.Div("LAF: A weighted, sound level, measured in the files in db(A)"),
+                          html.Div("a LAF99 value of 40 dBA means during 99% of the time the noise level was 40 dB(A).")])
+        )
+    ])]
     , style={"margin-left": "10px", "margin-right": "10px"})
 
 
+# update the graph based on the inputs
 @callback(
     Output("monthPlot", "figure"),
     [Input("months-slider", "value"),

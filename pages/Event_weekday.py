@@ -5,16 +5,17 @@ import plotly.express as px
 
 dash.register_page(__name__, path='/Event_weekday')
 
+# group the data in order to plo
 event = event_data()
 events_dist = event.groupby(['noise_event_laeq_primary_detected_class', 'weekday']).size().reset_index(name='count')
 events_dist = events_dist.reset_index()
 
+# add the bar chart
 fig = px.bar(events_dist, x="count", y="weekday", color="noise_event_laeq_primary_detected_class", orientation='h',
              hover_data=["noise_event_laeq_primary_detected_class", "count"],
              height=550, labels={"noise_event_laeq_primary_detected_class": "Event"},
              color_discrete_sequence=px.colors.qualitative.Antique
              )
-
 fig.update_layout(
     yaxis=dict(
         tickmode='array',
@@ -23,8 +24,16 @@ fig.update_layout(
     )
 )
 
+
+# layout
 layout = html.Div([
     dcc.Graph(
         figure=fig,
+        style={
+            'height': "100%",
+            'width': "100%",
+            "display": "block",
+            "margin-left": "auto",
+            "margin-right": "auto", }
     )
 ])

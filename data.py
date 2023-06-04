@@ -1,6 +1,5 @@
 import gdown
 import pandas as pd
-import numpy
 
 # import export_40
 # gdown.download_folder('https://drive.google.com/drive/folders/15prWrulNe0HMDbF-27YSUPmpU-FIcS-N', quiet=False)
@@ -8,6 +7,7 @@ import numpy
 # gdown.download_folder('https://drive.google.com/drive/folders/1k88urhr6Rhfeavtn5nbfShlpCVu3lGDh', quiet=False)
 # import export_42(summary)
 # gdown.download('https://drive.google.com/uc?export=download&id=1GVjrNHBtBFkV5YUO1mMdDQvTwMe5WFBb', quiet=False)
+
 
 # process event data (export_41)
 event_1 = pd.read_csv('export_41/csv_results_41_255439_mp-01-naamsestraat-35-maxim.csv', sep=';')
@@ -63,7 +63,6 @@ def event_data():
     return event
 
 
-
 # process percentile data (export_40)
 percentile_1 = pd.read_csv('export_40/csv_results_40_255439_mp-01-naamsestraat-35-maxim.csv', sep=';')
 percentile_2 = pd.read_csv('export_40/csv_results_40_255440_mp-02-naamsestraat-57-xior.csv', sep=';')
@@ -89,6 +88,8 @@ percentile['result_timestamp'] = pd.to_datetime(percentile['result_timestamp'], 
 def percentile_data():
     return percentile
 
+
+# in order to save computational time, we use a summary version of export 42 (every ten min instead of every second)
 """
 # noise level data (every second)
 level_11 = pd.read_csv("D:/MDA/noise_level/Jan/csv_results_42_255439_mp-01-naamsestraat-35-maxim.csv", sep=";")

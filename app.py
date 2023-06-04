@@ -3,9 +3,11 @@ from dash import html, dcc
 import dash_bootstrap_components as dbc
 
 
+# create the dashboard
 app = dash.Dash(__name__, use_pages=True, external_stylesheets=[dbc.themes.FLATLY])
 server = app.server
 
+# create the navigation bar
 navbar = dbc.NavbarSimple(
     children=[
         dbc.NavItem(
@@ -33,6 +35,7 @@ navbar = dbc.NavbarSimple(
     sticky='Top'
 )
 
+# dashboard layout
 app.layout = html.Div(
     [
         html.Div("Noise in Leuven", style={'fontSize': 50, 'textAlign': 'center'}),

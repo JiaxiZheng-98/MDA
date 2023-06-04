@@ -5,22 +5,21 @@ import plotly.express as px
 
 dash.register_page(__name__, path='/Event_monthly')
 
+# group the data in order to plot
 event = event_data()
 events_dist = event.groupby(['noise_event_laeq_primary_detected_class', 'month']).size().reset_index(name='count')
 events_dist = events_dist.reset_index()
-
 month_total = events_dist.groupby('month')['count'].transform('sum')
 events_dist['percentage'] = (events_dist['count'] / month_total) * 100
 events_dist = events_dist.sort_values('month')
 
-
+# add bar chart
 fig = px.bar(events_dist, x="percentage", y="month", color="noise_event_laeq_primary_detected_class", orientation='h',
              hover_data=["noise_event_laeq_primary_detected_class", "count"],
              height=550, labels={"noise_event_laeq_primary_detected_class": "Event"},
              color_discrete_sequence=px.colors.qualitative.Antique,
              barmode='stack'
              )
-
 fig.update_layout(
     yaxis=dict(
         tickmode='array',
@@ -29,8 +28,15 @@ fig.update_layout(
     )
 )
 
+# layout
 layout = html.Div([
     dcc.Graph(
         figure=fig,
+        style={
+            'height': "100%",
+            'width': "100%",
+            "display": "block",
+            "margin-left": "auto",
+            "margin-right": "auto", }
     )
 ])

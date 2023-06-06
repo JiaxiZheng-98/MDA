@@ -181,7 +181,7 @@ inputs = dbc.Card(
             ]), width="auto"),
             dbc.Col(html.Div([
                 html.Div("Input the humidity:"),
-                rain_dropdown
+                humidity
             ]), width="auto"),
         ], justify="center"),
         html.Br(),
